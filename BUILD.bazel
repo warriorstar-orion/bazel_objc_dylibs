@@ -1,0 +1,24 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "objc_library")
+
+objc_library(
+    name = "libthing",
+    srcs = ["main.m"],
+    sdk_frameworks = [
+      "Foundation",
+    ],
+    sdk_dylibs = [
+      "libiconv",
+    ],
+    alwayslink = 1,
+)
+
+cc_binary(
+    name = "thing_cc_binary",
+    deps = [":libthing"],
+)
+
+apple_binary(
+  platform_type = "macos",
+  name = "thing_apple_binary",
+  deps = [":libthing"],
+)
